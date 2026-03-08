@@ -37,9 +37,8 @@ export const agregarProducto = async (req, res) => {
 
 export const actualizarProducto = async (req, res) => {
     try {
-        const { id } = req.params; // Obtenemos el ID de la URL
+        const { id } = req.params;
         
-        // Validación básica (opcional pero recomendada)
         if (!req.body.nombre) {
             return res.status(400).json({ message: "El campo nombre es requerido para actualizar" });
         }
@@ -51,6 +50,22 @@ export const actualizarProducto = async (req, res) => {
         }
         
         res.status(200).json({ message: "Producto actualizado correctamente", id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const eliminarProducto = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const filasAfectadas = await productoM.eliminarProducto(id);
+        
+        if (filasAfectadas === 0) {
+            return res.status(404).json({ message: "Producto no encontrado para eliminar" });
+        }
+        
+        res.status(200).json({ message: "Producto eliminado correctamente" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
