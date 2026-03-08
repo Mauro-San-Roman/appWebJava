@@ -8,7 +8,8 @@ import productosRoutes from './routes/productos.routes.js'
 import clientesRoutes from './routes/clientes.routes.js'
 //IMPORTACION DE SERVICIOS
 import serviciosRoutes from './routes/servicios.routes.js'
-
+//IMPORTACION DE SERVICIOS
+import nosotrosRoutes from './routes/nosotros.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -42,3 +43,5 @@ app.listen(port, ()=>{
 app.use('/api/clientes', clientesRoutes);
 //RUTAS PARA LOS SERVICIOS
 app.use('/api/servicios', serviciosRoutes);
+//RUTAS PARA LA INFORMACION "NOSOTROS"
+app.use('/api/nosotros', nosotrosRoutes);
