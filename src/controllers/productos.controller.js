@@ -16,7 +16,7 @@ export const getProductoById=async (req,res)=>{
         
         const producto= await productoM.getProductoById(req.params.id)
         if (!producto) {
-            res.status(404).json({message:"Producto no encontrados"})
+            return res.status(404).json({message:"Producto no encontrados"})
         }
         res.status(200).json(producto) 
     } catch (error) {

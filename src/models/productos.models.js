@@ -5,7 +5,7 @@ export const getAllProductos= async ()=>{
     return rows;
 }
 
-export const getProductoById=async ()=>{
+export const getProductoById=async (id)=>{
     const[rows]=await db.query("SELECT * FROM tblproductos WHERE idProducto=?",[id])
     return rows[0]
 }
