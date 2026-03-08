@@ -6,6 +6,8 @@ import cors from 'cors'
 import productosRoutes from './routes/productos.routes.js'
 //IMPORTACION DE CLIENTES
 import clientesRoutes from './routes/clientes.routes.js'
+//IMPORTACION DE SERVICIOS
+import serviciosRoutes from './routes/servicios.routes.js'
 
 
 //! creamos el objeto de espress para nuestra aplicacion
@@ -38,3 +40,5 @@ app.listen(port, ()=>{
 
 //RUTAS PARA LOS CLIENTES
 app.use('/api/clientes', clientesRoutes);
+//RUTAS PARA LOS SERVICIOS
+app.use('/api/servicios', serviciosRoutes);
