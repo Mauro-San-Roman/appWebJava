@@ -2,7 +2,11 @@
 import express from 'express'
 import dontenv from 'dotenv'
 import cors from 'cors'
+//IMPORTACION DE PRODUCTOS
 import productosRoutes from './routes/productos.routes.js'
+//IMPORTACION DE CLIENTES
+import clientesRoutes from './routes/clientes.routes.js'
+
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -31,3 +35,6 @@ app.get('/otra', (req, res)=> {
 app.listen(port, ()=>{
     console.log(`Aplicacion corriendo en el puerto ${port}`)
 })
+
+//RUTAS PARA LOS CLIENTES
+app.use('/api/clientes', clientesRoutes);
