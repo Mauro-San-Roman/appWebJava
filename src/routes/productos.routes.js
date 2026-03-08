@@ -6,5 +6,6 @@ const router = Router();
 // Definición de endpoints
 router.get('/', ctrl.getAllProductos);
 router.get('/:id', ctrl.getProductoById);
+router.post('/', ctrl.agregarProducto)
 
 export default router;
