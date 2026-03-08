@@ -27,3 +27,10 @@ export const agregarProducto = async ({
     );
     return { id: result.insertId, nombre };
 };
+export const actualizarProducto = async (id, { nombre, stock, precio, descripcion, categoria, imagen_url }) => {
+    const [result] = await db.query(
+        "UPDATE tblproductos SET nombre=?, stock=?, precio=?, descripcion=?, categoria=?, imagen_url=? WHERE idProducto=?",
+        [nombre, stock, precio, descripcion, categoria, imagen_url || null, id]
+    );
+    return result.affectedRows; 
+};
