@@ -14,6 +14,8 @@ import nosotrosRoutes from './routes/nosotros.routes.js'
 import dispositivosRoutes from './routes/dispositivos.routes.js'
 //IMPORTACION DE AGENDA
 import agendaRoutes from './routes/agenda.routes.js'
+//IMPORTACION DE AGENDA
+import registroRoutes from './routes/registro.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -53,3 +55,5 @@ app.use('/api/nosotros', nosotrosRoutes);
 app.use('/api/dispositivos', dispositivosRoutes);
 //RUTAS PARA LA AGENDA
 app.use('/api/agenda', agendaRoutes);
+//RUTAS PARA LOS REGISTROS
+app.use('/api/registros', registroRoutes);
