@@ -14,8 +14,14 @@ import nosotrosRoutes from './routes/nosotros.routes.js'
 import dispositivosRoutes from './routes/dispositivos.routes.js'
 //IMPORTACION DE AGENDA
 import agendaRoutes from './routes/agenda.routes.js'
-//IMPORTACION DE AGENDA
+//IMPORTACION DE REGISTROS
 import registroRoutes from './routes/registro.routes.js'
+//IMPORTACION DE TRABAJADORES
+import trabajadoresRoutes from './routes/trabajadores.routes.js'
+//IMPORTACION DE PROVEEDORES
+import proveedoresRoutes from './routes/proveedores.routes.js'
+//IMPORTACION DE ROLES
+import rolesRoutes from './routes/roles.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -57,3 +63,9 @@ app.use('/api/dispositivos', dispositivosRoutes);
 app.use('/api/agenda', agendaRoutes);
 //RUTAS PARA LOS REGISTROS
 app.use('/api/registros', registroRoutes);
+//RUTAS PARA LOS TRABAJADORES
+app.use('/api/trabajadores', trabajadoresRoutes);
+//RUTAS PARA LOS PROVEEDORES
+app.use('/api/proveedores', proveedoresRoutes);
+//RUTAS PARA LOS ROLES
+app.use('/api/roles', rolesRoutes);
