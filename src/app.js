@@ -8,9 +8,9 @@ import productosRoutes from './routes/productos.routes.js'
 import clientesRoutes from './routes/clientes.routes.js'
 //IMPORTACION DE SERVICIOS
 import serviciosRoutes from './routes/servicios.routes.js'
-//IMPORTACION DE SERVICIOS
+//IMPORTACION DE INFORMACION "NOSOTROS"
 import nosotrosRoutes from './routes/nosotros.routes.js'
-//IMPORTACION DE SERVICIOS
+//IMPORTACION DE DISPOSITIVOS
 import dispositivosRoutes from './routes/dispositivos.routes.js'
 //IMPORTACION DE AGENDA
 import agendaRoutes from './routes/agenda.routes.js'
@@ -22,6 +22,18 @@ import trabajadoresRoutes from './routes/trabajadores.routes.js'
 import proveedoresRoutes from './routes/proveedores.routes.js'
 //IMPORTACION DE ROLES
 import rolesRoutes from './routes/roles.routes.js'
+//IMPORTACION DE AUDITORIA
+import auditoriaRoutes from './routes/auditoria.routes.js'
+//IMPORTACION DE CONTACTOS
+import contactoRoutes from './routes/contacto.routes.js'
+//IMPORTACION DE INICIO
+import inicioRoutes from './routes/inicio.routes.js'
+//IMPORTACION DE MENSAJES
+import mensajesRoutes from './routes/mensajes.routes.js'
+//IMPORTACION DE NOTICIAS
+import noticiasRoutes from './routes/noticias.routes.js'
+//IMPORTACION DE VIDEOS
+import videosRoutes from './routes/videos.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -69,3 +81,15 @@ app.use('/api/trabajadores', trabajadoresRoutes);
 app.use('/api/proveedores', proveedoresRoutes);
 //RUTAS PARA LOS ROLES
 app.use('/api/roles', rolesRoutes);
+//RUTAS PARA LAS AUDITORIAS
+app.use('/api/auditorias', auditoriaRoutes);
+//RUTAS PARA LOS CONTACTOS
+app.use('/api/contacto', contactoRoutes);
+//RUTAS PARA EL INICIO
+app.use('/api/inicio', inicioRoutes);
+//RUTAS PARA LOS MENSAJES
+app.use('/api/mensajes', mensajesRoutes);
+//RUTAS PARA LAS NOTICIAS
+app.use('/api/noticias', noticiasRoutes);
+//RUTAS PARA LOS VIDEOS
+app.use('/api/videos', videosRoutes);
