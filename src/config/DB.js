@@ -1,17 +1,15 @@
 import { createPool } from 'mysql2/promise';
 import dotenv from 'dotenv';
-//CONFIGURAR VARIABLES DE ENTORNO
+
+// Aseguramos que cargue las variables de entorno
 dotenv.config();
-//CREAMOS EL POOL CONECCION A LA BASE DE DATOS
-const pool = createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit:0
+
+const db = createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306
 });
 
-export default pool;
+export default db;
