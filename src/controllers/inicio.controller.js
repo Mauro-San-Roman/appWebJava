@@ -1,8 +1,13 @@
 import * as inicioM from "../models/inicio.models.js";
 
 export const getInicio = async (req, res) => {
-    try { res.status(200).json(await inicioM.getInicioById(req.params.id)); }
-    catch (error) { res.status(500).json({ error: error.message }); }
+    try { 
+        // Ya no le pasamos req.params.id
+        const inicio = await configM.getInicio();
+        res.status(200).json(inicio); 
+    } catch (error) { 
+        res.status(500).json({ error: error.message }); 
+    }
 };
 export const actualizarInicio = async (req, res) => {
     try {
