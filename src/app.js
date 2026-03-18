@@ -34,6 +34,8 @@ import mensajesRoutes from './routes/mensajes.routes.js'
 import noticiasRoutes from './routes/noticias.routes.js'
 //IMPORTACION DE VIDEOS
 import videosRoutes from './routes/videos.routes.js'
+//IMPORTACION DE MARCAS
+import marcasRoutes from './routes/marcas.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -93,3 +95,5 @@ app.use('/api/mensajes', mensajesRoutes);
 app.use('/api/noticias', noticiasRoutes);
 //RUTAS PARA LOS VIDEOS
 app.use('/api/videos', videosRoutes);
+//RUTAS PARA LAS MARCAS
+app.use('/api/marcas', marcasRoutes);
