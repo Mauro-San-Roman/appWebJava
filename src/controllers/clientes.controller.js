@@ -1,8 +1,9 @@
-import * as clienteM from "../models/clientes.models.js";
+import bcrypt from 'bcryptjs';
+import * as clienteModel from '../models/clientes.models.js';
 
 export const getAllClientes = async (req, res) => {
     try {
-        const clientes = await clienteM.getAllClientes();
+        const clientes = await clienteModel.getAllClientes();
         res.status(200).json(clientes);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -11,7 +12,7 @@ export const getAllClientes = async (req, res) => {
 
 export const getClienteById = async (req, res) => {
     try {
-        const clientes = await clienteM.getClienteById(req.params.id);
+        const clientes = await clienteModel.getClienteById(req.params.id);
         if (!clientes) {
             return res.status(404).json({ message: "Cliente no encontrado" });
         }
@@ -23,13 +24,27 @@ export const getClienteById = async (req, res) => {
 
 export const agregarCliente = async (req, res) => {
     try {
-        if (!req.body.nombre) {
-            return res.status(400).json({ message: "El campo nombre es requerido" });
+        const { nombre, aPaterno, aMaterno, telefono, direccion, email, password } = req.body;
+        
+        if (!email || !password || !nombre) {
+            return res.status(400).json({ message: 'Nombre, email y password son obligatorios' });
         }
 
-        const nuevo = await clienteM.agregarCliente(req.body);
+        // 1. Verificamos si el correo ya existe
+        const existe = await clienteModel.getClienteByEmail(email);
+        if (existe) return res.status(409).json({ message: 'El correo ya está registrado' });
 
-        res.status(201).json(nuevo);
+        // 2. Encriptamos la contraseña
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        // 3. Guardamos con el hash
+        const nuevo = await clienteModel.agregarCliente({ 
+            nombre, aPaterno, aMaterno, telefono, direccion, email, 
+            password: passwordHash 
+        });
+
+        res.status(201).json({ message: 'Cliente registrado con éxito', data: nuevo });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
