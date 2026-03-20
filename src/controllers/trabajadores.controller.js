@@ -25,7 +25,7 @@ export const getTrabajadorById = async (req, res) => {
 export const agregarTrabajador = async (req, res) => {
     try {
         // ACTUALIZADO: Recibimos los nuevos campos
-        const { nombre, aPaterno, aMaterno, CPostal, estado, municipio, colonia, calle, telefono, email, password, idRol } = req.body;
+        const { nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, password, idRol } = req.body;
 
         if (!nombre || !email || !password) {
             return res.status(400).json({ message: "Los campos nombre, email y contraseña son requeridos" });
@@ -40,7 +40,7 @@ export const agregarTrabajador = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
 
         const nuevo = await trabajadorM.agregarTrabajador({
-            nombre, aPaterno, aMaterno, CPostal, estado, municipio, colonia, calle, telefono, email, 
+            nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, 
             password: passwordHash, 
             idRol
         });

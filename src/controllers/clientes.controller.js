@@ -25,7 +25,7 @@ export const getClienteById = async (req, res) => {
 export const agregarCliente = async (req, res) => {
     try {
         // ACTUALIZADO: Recibiendo todos los campos nuevos
-        const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, colonia, direccion, email, password } = req.body;
+        const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password } = req.body;
         
         if (!email || !password || !nombre) {
             return res.status(400).json({ message: 'Nombre, email y password son obligatorios' });
@@ -38,7 +38,7 @@ export const agregarCliente = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
 
         const nuevo = await clienteModel.agregarCliente({ 
-            nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, colonia, direccion, email, 
+            nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, 
             password: passwordHash 
         });
 
