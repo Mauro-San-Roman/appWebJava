@@ -24,23 +24,21 @@ export const getClienteById = async (req, res) => {
 
 export const agregarCliente = async (req, res) => {
     try {
-        const { nombre, aPaterno, aMaterno, telefono, direccion, email, password } = req.body;
+        // ACTUALIZADO: Recibiendo todos los campos nuevos
+        const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, colonia, direccion, email, password } = req.body;
         
         if (!email || !password || !nombre) {
             return res.status(400).json({ message: 'Nombre, email y password son obligatorios' });
         }
 
-        // 1. Verificamos si el correo ya existe
         const existe = await clienteModel.getClienteByEmail(email);
         if (existe) return res.status(409).json({ message: 'El correo ya está registrado' });
 
-        // 2. Encriptamos la contraseña
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        // 3. Guardamos con el hash
         const nuevo = await clienteModel.agregarCliente({ 
-            nombre, aPaterno, aMaterno, telefono, direccion, email, 
+            nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, colonia, direccion, email, 
             password: passwordHash 
         });
 
@@ -53,12 +51,24 @@ export const agregarCliente = async (req, res) => {
 export const actualizarCliente = async (req, res) => {
     try {
         const { id } = req.params;
+        let datosActualizados = { ...req.body };
         
-        if (!req.body.nombre) {
+        if (!datosActualizados.nombre) {
             return res.status(400).json({ message: "El campo nombre es requerido para actualizar" });
         }
 
-        const filasAfectadas = await clienteM.actualizarCliente(id, req.body);
+        // Lógica de contraseña (igual que en trabajadores) para no perderla si viene vacía
+        if (datosActualizados.password) {
+            const salt = await bcrypt.genSalt(10);
+            datosActualizados.password = await bcrypt.hash(datosActualizados.password, salt);
+        } else {
+            const clienteActual = await clienteModel.getClienteById(id);
+            if (!clienteActual) return res.status(404).json({ message: "Cliente no encontrado" });
+            datosActualizados.password = clienteActual.password;
+        }
+
+        // Corregido: antes decía clienteM, ahora es clienteModel
+        const filasAfectadas = await clienteModel.actualizarCliente(id, datosActualizados);
         
         if (filasAfectadas === 0) {
             return res.status(404).json({ message: "Cliente no encontrado para actualizar" });
@@ -74,7 +84,8 @@ export const eliminarCliente = async (req, res) => {
     try {
         const { id } = req.params;
         
-        const filasAfectadas = await clienteM.eliminarCliente(id);
+        // Corregido: antes decía clienteM
+        const filasAfectadas = await clienteModel.eliminarCliente(id);
         
         if (filasAfectadas === 0) {
             return res.status(404).json({ message: "Cliente no encontrado para eliminar" });

@@ -24,26 +24,24 @@ export const getTrabajadorById = async (req, res) => {
 
 export const agregarTrabajador = async (req, res) => {
     try {
-        const { nombre, aPaterno, aMaterno, direccion, telefono, email, password, idRol } = req.body;
+        // ACTUALIZADO: Recibimos los nuevos campos
+        const { nombre, aPaterno, aMaterno, CPostal, estado, municipio, colonia, calle, telefono, email, password, idRol } = req.body;
 
         if (!nombre || !email || !password) {
             return res.status(400).json({ message: "Los campos nombre, email y contraseña son requeridos" });
         }
 
-        // 1. Verificamos si el correo ya existe
         const existe = await trabajadorM.getTrabajadorByEmail(email);
         if (existe) {
             return res.status(409).json({ message: "El correo ya está registrado para otro trabajador" });
         }
 
-        // 2. Encriptamos la contraseña
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        // 3. Guardamos enviando el hash en lugar de la contraseña plana
         const nuevo = await trabajadorM.agregarTrabajador({
-            nombre, aPaterno, aMaterno, direccion, telefono, email, 
-            password: passwordHash, // <--- Aquí inyectamos la contraseña encriptada
+            nombre, aPaterno, aMaterno, CPostal, estado, municipio, colonia, calle, telefono, email, 
+            password: passwordHash, 
             idRol
         });
 
@@ -62,15 +60,12 @@ export const actualizarTrabajador = async (req, res) => {
             return res.status(400).json({ message: "Los campos nombre y email son requeridos para actualizar" });
         }
 
-        // Si el usuario escribió una contraseña nueva, la encriptamos
         if (datosActualizados.password) {
             const salt = await bcrypt.genSalt(10);
             datosActualizados.password = await bcrypt.hash(datosActualizados.password, salt);
         } else {
-            // Si la dejó vacía, buscamos la que ya tenía en la BD para no borrarla
             const trabajadorActual = await trabajadorM.getTrabajadorById(id);
             if (!trabajadorActual) return res.status(404).json({ message: "Trabajador no encontrado" });
-            
             datosActualizados.password = trabajadorActual.password;
         }
 
