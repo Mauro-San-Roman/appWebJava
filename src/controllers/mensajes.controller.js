@@ -1,32 +1,39 @@
-import * as mensajeM from "../models/mensajes.models.js";
-export const getAllMensajes = async (req, res) => {
+import * as MensajeModel from '../models/mensajes.models.js'; 
+
+export const obtenerMensajes = async (req, res) => {
     try {
-        const mensajes = await mensajeM.getAllMensajes();
+        const mensajes = await MensajeModel.getAllMensajes();
         res.status(200).json(mensajes);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Error al obtener mensajes" });
     }
 };
 
-export const agregarMensaje = async (req, res) => {
+export const crearMensaje = async (req, res) => {
     try {
-        if (!req.body.correo || !req.body.mensaje)
-            return res
-                .status(400)
-                .json({ message: "Correo y mensaje son requeridos" });
-        const nuevo = await mensajeM.agregarMensaje(req.body);
-        res.status(201).json(nuevo);
+        const nuevoMensaje = await MensajeModel.agregarMensaje(req.body);
+        res.status(201).json(nuevoMensaje);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: "Error al crear el mensaje" });
     }
 };
-export const eliminarMensaje = async (req, res) => {
+
+export const borrarMensaje = async (req, res) => {
     try {
-        const filas = await mensajeM.eliminarMensaje(req.params.id);
-        if (filas === 0)
-            return res.status(404).json({ message: "Mensaje no encontrado" });
+        await MensajeModel.eliminarMensaje(req.params.id);
         res.status(200).json({ message: "Mensaje eliminado" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Error al eliminar" });
+    }
+};
+
+export const modificarMensaje = async (req, res) => {
+    try {
+        await MensajeModel.actualizarMensaje(req.params.id, req.body);
+        res.status(200).json({ message: "Estado de mensaje actualizado correctamente" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al actualizar el mensaje" });
     }
 };
