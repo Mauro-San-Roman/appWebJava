@@ -1,4 +1,5 @@
-const DashboardModel = require('../models/dashboard.models.js');
+// Importamos todo el modelo usando la sintaxis moderna
+import * as DashboardModel from '../models/dashboard.models.js';
 
 // Controlador para los totales
 export const obtenerTotales = async (req, res) => {

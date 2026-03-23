@@ -1,5 +1,5 @@
-// Importa tu conexión a la base de datos (ajusta la ruta según tu proyecto)
-const db = require('../config/DB.js'); 
+// Cambiamos 'require' por 'import'
+import db from '../config/DB.js'; 
 
 // Consulta 1: Obtener los totales
 export const getTotales = async () => {
@@ -10,7 +10,7 @@ export const getTotales = async () => {
             (SELECT COUNT(*) FROM tblregistro) AS total_registros;
     `;
     const [rows] = await db.query(query);
-    return rows[0]; // Retornamos solo el primer objeto con los 3 totales
+    return rows[0];
 };
 
 // Consulta 2: Obtener productos con stock bajo
@@ -21,5 +21,5 @@ export const getStockBajo = async () => {
         WHERE CAST(stock AS UNSIGNED) <= 5;
     `;
     const [rows] = await db.query(query);
-    return rows; // Retornamos el arreglo (lista) de productos
+    return rows; 
 };
