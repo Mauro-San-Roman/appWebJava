@@ -5,7 +5,7 @@ import { verificarToken } from '../middlewares/middleware.js';
 const router = Router();
 
 // Definición de endpoints
-router.get('/',verificarToken, ctrl.obtenerStockBajo);
-router.get('/',verificarToken, ctrl.obtenerTotales);
+router.get('/', ctrl.obtenerStockBajo);
+router.get('/', ctrl.obtenerTotales);
 
 export default router;
