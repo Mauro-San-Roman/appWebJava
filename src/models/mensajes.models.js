@@ -9,12 +9,11 @@ export const agregarMensaje = async ({correo, asunto, mensaje, tipo_mensaje, est
     const tipo = tipo_mensaje || 'ENTRANTE';
     const estado = estado_mensaje || 'PENDIENTE';
     const padre = id_mensaje_padre || null;
-    const nom = nombre || 'Desconocido';
 
     const query = `
         INSERT INTO tbl_mensajes 
         (correo, asunto, mensaje, tipo_mensaje, estado_mensaje, id_mensaje_padre) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
 
     const [result] = await db.query(query, [ correo, asunto, mensaje, tipo, estado, padre]);
