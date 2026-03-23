@@ -1,6 +1,6 @@
 import db from "../config/DB.js";
 
-export const obtenerMensajes = async () => { 
+export const getAllMensajes = async () => { 
     const [rows] = await db.query("SELECT * FROM tbl_mensajes ORDER BY id DESC"); 
     return rows; 
 };
