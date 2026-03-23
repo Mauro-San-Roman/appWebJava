@@ -38,6 +38,8 @@ import videosRoutes from './routes/videos.routes.js'
 import marcasRoutes from './routes/marcas.routes.js'
 //IMPORTACION DE AUTENTICACION DE TOKEN
 import autenticacionToken from './routes/login.routes.js'
+//IMPORTACION DE DASHBOARD
+import dashboardRoutes from './routes/dashboard.routes.js'
 
 //! creamos el objeto de espress para nuestra aplicacion
 const app = express();
@@ -101,3 +103,5 @@ app.use('/api/videos', videosRoutes);
 app.use('/api/marcas', marcasRoutes);
 //RUTAS PARA LA AUTENTICACION
 app.use('/api/auth', autenticacionToken);
+//RUTAS PARA EL DASHBOARD
+app.use('/api/dashboard', dashboardRoutes);

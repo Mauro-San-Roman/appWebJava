@@ -1,0 +1,23 @@
+const DashboardModel = require('../models/dashboard.models.js');
+
+// Controlador para los totales
+export const obtenerTotales = async (req, res) => {
+    try {
+        const totales = await DashboardModel.getTotales();
+        res.status(200).json(totales);
+    } catch (error) {
+        console.error("Error al obtener los totales:", error);
+        res.status(500).json({ message: "Error al obtener la información del dashboard" });
+    }
+};
+
+// Controlador para el stock bajo
+export const obtenerStockBajo = async (req, res) => {
+    try {
+        const productos = await DashboardModel.getStockBajo();
+        res.status(200).json(productos);
+    } catch (error) {
+        console.error("Error al obtener el stock:", error);
+        res.status(500).json({ message: "Error al obtener las alertas de stock" });
+    }
+};
