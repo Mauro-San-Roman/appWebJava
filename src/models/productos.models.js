@@ -6,9 +6,9 @@ export const getAllProductos = async () => {
 };
 
 export const getProductoById = async (id) => {
-    // Usamos CAST(stock AS SIGNED) para convertir el VARCHAR a Número
+    // Le pasamos idProducto a la función, no el stock
     const [rows] = await db.query( 
-        "SELECT *, fn_EstadoStock(CAST(stock AS SIGNED)) AS estado_stock FROM tblproductos WHERE idProducto=?",
+        "SELECT *, fn_EstadoStock(idProducto) AS estado_stock FROM tblproductos WHERE idProducto=?",
         [id]
     );
     return rows[0];
