@@ -6,7 +6,11 @@ export const getAllProductos = async () => {
 };
 
 export const getProductoById = async (id) => {
-    const [rows] = await db.query( "SELECT * FROM tblproductos WHERE idProducto=?",[id]);
+    // Se agrega el llamado a fn_EstadoStock pasando la columna stock
+    const [rows] = await db.query( 
+        "SELECT *, fn_EstadoStock(stock) AS estado_stock FROM tblproductos WHERE idProducto=?",
+        [id]
+    );
     return rows[0];
 };
 
