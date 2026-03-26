@@ -15,7 +15,6 @@ export const getClienteByEmail = async (email) => {
     return rows[0];
 };
 
-// ACTUALIZADO: Se agregaron CPostal, estado, municipio, y colonia (se mantiene direccion)
 export const agregarCliente = async ({ nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password }) => {
     const [result] = await db.query(
         "INSERT INTO tblclientes (nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -24,7 +23,6 @@ export const agregarCliente = async ({ nombre, aPaterno, aMaterno, telefono, CPo
     return { id: result.insertId, nombre, email };
 };
 
-// ACTUALIZADO
 export const actualizarCliente = async (id, { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password }) => {
     const [result] = await db.query(
         "UPDATE tblclientes SET nombre = ?, aPaterno = ?, aMaterno = ?, telefono = ?, CPostal = ?, estado = ?, municipio = ?, asentamiento = ?, calle = ?, email = ?, password = ? WHERE idCliente = ?",

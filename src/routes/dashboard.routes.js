@@ -1,10 +1,10 @@
 import { Router } from 'express';
+import { verificarToken } from '../middlewares/middleware.js';
 import * as ctrl from '../controllers/dashboard.controller.js';
 
 const router = Router();
 
-// Endpoints LIBERADOS para hacer pruebas directas en el navegador o Postman
-router.get('/bajo-stock', ctrl.obtenerStockBajo);
-router.get('/totales',  ctrl.obtenerTotales);
+router.get('/bajo-stock', verificarToken, ctrl.obtenerStockBajo);
+router.get('/totales', verificarToken, ctrl.obtenerTotales);
 
 export default router;

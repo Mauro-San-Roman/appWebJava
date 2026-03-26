@@ -15,7 +15,6 @@ export const getTrabajadorByEmail = async (email) => {
     return rows[0];
 };
 
-// ACTUALIZADO: Se agregaron CPostal, estado, municipio, asentamiento y calle
 export const agregarTrabajador = async ({ nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, password, idRol }) => {
     const [result] = await db.query(
         "INSERT INTO tbltrabajadores (nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, password, idRol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -24,7 +23,6 @@ export const agregarTrabajador = async ({ nombre, aPaterno, aMaterno, CPostal, e
     return { id: result.insertId, nombre, email };
 };
 
-// ACTUALIZADO
 export const actualizarTrabajador = async (id, { nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, password, idRol }) => {
     const [result] = await db.query(
         "UPDATE tbltrabajadores SET nombre = ?, aPaterno = ?, aMaterno = ?, CPostal = ?, estado = ?, municipio = ?, asentamiento = ?, calle = ?, telefono = ?, email = ?, password = ?, idRol = ? WHERE idTrabajador = ?",

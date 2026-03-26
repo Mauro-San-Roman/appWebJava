@@ -4,7 +4,6 @@ import { verificarToken } from '../middlewares/middleware.js';
 
 const router = Router();
 
-// Todo el módulo de trabajadores debe estar protegido
 router.get('/',  ctrl.getAllTrabajadores);
 router.get('/:id', ctrl.getTrabajadorById);
 router.post('/', verificarToken, ctrl.agregarTrabajador);

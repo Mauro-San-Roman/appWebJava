@@ -23,7 +23,6 @@ export const getRolById = async (req, res) => {
 
 export const agregarRol = async (req, res) => {
     try {
-        // Validación: solo necesitamos el nombre del rol
         if (!req.body.nombreRol) {
             return res.status(400).json({ message: "El campo nombreRol es requerido" });
         }

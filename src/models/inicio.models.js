@@ -1,9 +1,8 @@
 import db from "../config/DB.js";
 
-// Modificada para traer todos los registros de la tabla
 export const getInicio = async () => { 
     const [rows] = await db.query("SELECT * FROM tbl_inicio"); 
-    return rows; // Retorna el arreglo completo con toda la info
+    return rows;
 };
 
 export const actualizarInicio = async (id, { titulo, descripcion, texto_boton, imagen_fondo, video_url }) => {

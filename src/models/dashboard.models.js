@@ -1,7 +1,5 @@
-// Cambiamos 'require' por 'import'
 import db from '../config/DB.js'; 
 
-// Consulta 1: Obtener los totales
 export const getTotales = async () => {
     const query = `
         SELECT 
@@ -13,7 +11,6 @@ export const getTotales = async () => {
     return rows[0];
 };
 
-// Consulta 2: Obtener productos con stock bajo
 export const getStockBajo = async () => {
     const query = `
         SELECT nombre, stock 

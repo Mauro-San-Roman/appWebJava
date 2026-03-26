@@ -24,7 +24,6 @@ export const getTrabajadorById = async (req, res) => {
 
 export const agregarTrabajador = async (req, res) => {
     try {
-        // ACTUALIZADO: Recibimos los nuevos campos
         const { nombre, aPaterno, aMaterno, CPostal, estado, municipio, asentamiento, calle, telefono, email, password, idRol } = req.body;
 
         if (!nombre || !email || !password) {

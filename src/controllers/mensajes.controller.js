@@ -2,7 +2,6 @@ import * as MensajeModel from '../models/mensajes.models.js';
 
 export const getAllMensajes = async (req, res) => {
     try {
-        // Ahora llamamos a MensajeModel.obtenerMensajes() 
         const mensajes = await MensajeModel.getAllMensajes();
         res.status(200).json(mensajes);
     } catch (error) {

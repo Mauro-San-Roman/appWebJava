@@ -24,7 +24,7 @@ export const getClienteById = async (req, res) => {
 
 export const agregarCliente = async (req, res) => {
     try {
-        // ACTUALIZADO: Recibiendo todos los campos nuevos
+
         const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password } = req.body;
         
         if (!email || !password || !nombre) {
@@ -57,7 +57,6 @@ export const actualizarCliente = async (req, res) => {
             return res.status(400).json({ message: "El campo nombre es requerido para actualizar" });
         }
 
-        // Lógica de contraseña (igual que en trabajadores) para no perderla si viene vacía
         if (datosActualizados.password) {
             const salt = await bcrypt.genSalt(10);
             datosActualizados.password = await bcrypt.hash(datosActualizados.password, salt);
@@ -67,7 +66,6 @@ export const actualizarCliente = async (req, res) => {
             datosActualizados.password = clienteActual.password;
         }
 
-        // Corregido: antes decía clienteM, ahora es clienteModel
         const filasAfectadas = await clienteModel.actualizarCliente(id, datosActualizados);
         
         if (filasAfectadas === 0) {
@@ -84,7 +82,6 @@ export const eliminarCliente = async (req, res) => {
     try {
         const { id } = req.params;
         
-        // Corregido: antes decía clienteM
         const filasAfectadas = await clienteModel.eliminarCliente(id);
         
         if (filasAfectadas === 0) {
