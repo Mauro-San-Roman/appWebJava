@@ -20,3 +20,19 @@ export const getStockBajo = async () => {
     const [rows] = await db.query(query);
     return rows; 
 };
+
+// === NUEVA FUNCIÓN: Obtener los clientes iniciales (Enero 2024) ===
+export const getClientesIniciales = async () => {
+    const query = `
+        SELECT 
+            idCliente, nombre, 
+            aPaterno, aMaterno, 
+            fecha_registro
+        FROM tblclientes
+        WHERE fecha_registro >= '2024-01-01 00:00:00' 
+          AND fecha_registro <= '2024-01-31 23:59:59'
+        ORDER BY idCliente ASC;
+    `;
+    const [rows] = await db.query(query);
+    return rows;
+};

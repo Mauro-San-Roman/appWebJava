@@ -21,3 +21,14 @@ export const obtenerStockBajo = async (req, res) => {
         res.status(500).json({ message: "Error al obtener las alertas de stock" });
     }
 };
+
+//Controolador para los clientes iniciales
+export const obtenerClientesIniciales = async (req, res) => {
+    try {
+        const clientes = await DashboardModel.getClientesIniciales();
+        res.status(200).json(clientes);
+    } catch (error) {
+        console.error("Error al obtener los clientes iniciales:", error);
+        res.status(500).json({ message: "Error al obtener los clientes iniciales" });
+    }
+};
