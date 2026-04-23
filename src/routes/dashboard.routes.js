@@ -6,6 +6,6 @@ const router = Router();
 
 router.get('/bajo-stock', verificarToken, ctrl.obtenerStockBajo);
 router.get('/totales', verificarToken, ctrl.obtenerTotales);
-router.get('/clientesIniciales',  ctrl.obtenerClientesIniciales);
+router.get('/clientesIniciales', verificarToken, ctrl.obtenerClientesIniciales);
 
 export default router;
