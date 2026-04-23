@@ -24,8 +24,8 @@ export const getClienteById = async (req, res) => {
 
 export const agregarCliente = async (req, res) => {
     try {
-
-        const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password } = req.body;
+        // Extraemos fecha_registro del body
+        const { nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, password, fecha_registro } = req.body;
         
         if (!email || !password || !nombre) {
             return res.status(400).json({ message: 'Nombre, email y password son obligatorios' });
@@ -37,9 +37,13 @@ export const agregarCliente = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
+        // Si el frontend no envía la fecha, usamos la fecha y hora actual del servidor por defecto
+        const fechaRegistroFinal = fecha_registro || new Date().toISOString().slice(0, 19).replace('T', ' ');
+
         const nuevo = await clienteModel.agregarCliente({ 
             nombre, aPaterno, aMaterno, telefono, CPostal, estado, municipio, asentamiento, calle, email, 
-            password: passwordHash 
+            password: passwordHash,
+            fecha_registro: fechaRegistroFinal
         });
 
         res.status(201).json({ message: 'Cliente registrado con éxito', data: nuevo });
@@ -57,13 +61,20 @@ export const actualizarCliente = async (req, res) => {
             return res.status(400).json({ message: "El campo nombre es requerido para actualizar" });
         }
 
+        // Consultamos al cliente actual una sola vez para mantener su password o su fecha de registro si no se envían
+        const clienteActual = await clienteModel.getClienteById(id);
+        if (!clienteActual) return res.status(404).json({ message: "Cliente no encontrado" });
+
         if (datosActualizados.password) {
             const salt = await bcrypt.genSalt(10);
             datosActualizados.password = await bcrypt.hash(datosActualizados.password, salt);
         } else {
-            const clienteActual = await clienteModel.getClienteById(id);
-            if (!clienteActual) return res.status(404).json({ message: "Cliente no encontrado" });
             datosActualizados.password = clienteActual.password;
+        }
+
+        // Si la petición de actualización no incluye la fecha_registro, conservamos la que ya tenía
+        if (!datosActualizados.fecha_registro) {
+            datosActualizados.fecha_registro = clienteActual.fecha_registro;
         }
 
         const filasAfectadas = await clienteModel.actualizarCliente(id, datosActualizados);
