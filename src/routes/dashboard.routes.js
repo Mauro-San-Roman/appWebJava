@@ -7,5 +7,6 @@ const router = Router();
 router.get('/bajo-stock', verificarToken, ctrl.obtenerStockBajo);
 router.get('/totales', verificarToken, ctrl.obtenerTotales);
 router.get('/clientesIniciales', verificarToken, ctrl.obtenerClientesIniciales);
+router.get('/clientesRango', ctrl.obtenerClientesPorRango);
 
 export default router;

@@ -36,3 +36,14 @@ export const getClientesIniciales = async () => {
     const [rows] = await db.query(query);
     return rows;
 };
+export const getClientesPorRango = async (fechaInicio, fechaFin) => {
+    const query = `
+        SELECT COUNT(*) AS total_clientes
+        FROM tblclientes 
+        WHERE fecha_registro >= ? 
+          AND fecha_registro <= ?;
+    `;
+    // Le pasamos las fechas dinámicas a la consulta SQL
+    const [rows] = await db.query(query, [fechaInicio, fechaFin]);
+    return rows[0];
+};
